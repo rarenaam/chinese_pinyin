@@ -39,7 +39,7 @@ main{min-width:0;padding:26px clamp(18px,3vw,44px) 38px;max-width:1600px;width:1
         <div class="quiz-meta"><span id="questionCount">0 / 10</span><div class="progress"><i id="progressBar"></i></div><span class="timer" id="timer">◷ —</span></div>
         <div class="sound-area">
           <button class="sound-button" id="playBtn" aria-label="Speel uitspraak af">♫</button>
-          <div class="sound-label" id="soundLabel">Druk op de knop om de uitspraak te horen</div>
+          <div class="sound-label" id="soundLabel">Klik hier om te starten en de eerste klank te horen</div>
         </div>
         <form id="answerForm">
           <div class="answer-row"><input id="answerInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Typ de pinyin, bijvoorbeeld nǐ" aria-label="Typ je pinyin-antwoord"><button class="primary" id="checkBtn" type="submit">Controleren ↗</button></div>
@@ -154,17 +154,38 @@ function nextQuestion(){
  $('#soundLabel').textContent='Luister goed en typ de pinyin';$('#playBtn').textContent='♫';$('#playBtn').disabled=false;$('#answerInput').disabled=false;$('#checkBtn').disabled=false;$('#answerInput').value='';$('#answerInput').focus();setFeedback('Tip: je kunt ook pinyin zonder toonaccenten invoeren.');
  const secs=Number($('#seconds').value);remaining=secs;$('#timer').textContent=secs?`◷ ${remaining}s`:'◷ Geen timer';
  if(secs){timerId=setInterval(()=>{remaining--;$('#timer').textContent=`◷ ${remaining}s`;if(remaining<=0){clearInterval(timerId);if(!answered)submitAnswer(true)}},1000)}
- setTimeout(playSound,250);
+ // Call speech synchronously during the user's click/submit action.
+ // This avoids browsers blocking delayed speech as autoplay.
+ playSound();
 }
 function playSound(){
- if(!current)return;
- if(!('speechSynthesis'in window)){setFeedback('Deze browser ondersteunt geen spraaksynthese. Probeer Chrome of Edge.','bad');return}
- speechSynthesis.cancel();
- const utterance=new SpeechSynthesisUtterance(current.hanzi);utterance.lang='zh-CN';utterance.rate=.78;utterance.pitch=1;
- const voices=speechSynthesis.getVoices();const zh=voices.find(v=>/^zh(-|_)?(CN|Hans)?/i.test(v.lang))||voices.find(v=>v.lang.toLowerCase().startsWith('zh'));
- if(zh)utterance.voice=zh;
- utterance.onerror=()=>setFeedback('De browser kon geen stem afspelen. Controleer of er een Chinese stem beschikbaar is.','bad');
- speechSynthesis.speak(utterance);
+ // The large sound button is also a convenient way to start the first quiz.
+ if(!current){startQuiz();return;}
+ if(!('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance==='undefined'){
+  setFeedback('Deze browser ondersteunt geen spraakaudio. Probeer de website in Chrome or Edge.','bad');
+  $('#voiceStatus').textContent='Audio niet ondersteund';
+  return;
+ }
+ const synth=window.speechSynthesis;
+ synth.cancel();
+ const utterance=new SpeechSynthesisUtterance(current.hanzi);
+ utterance.lang='zh-CN';utterance.rate=.78;utterance.pitch=1;
+ const voices=synth.getVoices();
+ const zh=voices.find(v=>/^zh([_-](CN|Hans|TW|HK|SG))?$/i.test(v.lang))||voices.find(v=>v.lang.toLowerCase().startsWith('zh'));
+ if(zh){utterance.voice=zh;utterance.lang=zh.lang;$('#voiceStatus').textContent='Chinese stem: '+zh.name;}
+ else {$('#voiceStatus').textContent='Chinese stem wordt gezocht';}
+ utterance.onstart=()=>{if(zh)$('#voiceStatus').textContent='● Audio speelt';};
+ utterance.onend=()=>{if(zh)$('#voiceStatus').textContent='● Audio klaar';};
+ utterance.onerror=(event)=>{
+  const detail=event && event.error ? ' ('+event.error+')' : '';
+  setFeedback('De browser kon de Chinese uitspraak niet afspelen'+detail+'. Controleer of je apparaat een Chinese spraakstem heeft en of het geluid aanstaat.','bad');
+  $('#voiceStatus').textContent='Audio mislukt';
+ };
+ if(!zh){setFeedback('Geen aparte Chinese stem gevonden. De browser probeert het toch; als je niets hoort, installeer dan een Chinese spraakstem in je apparaatinstellingen.','');}
+ try{synth.speak(utterance);}catch(err){
+  setFeedback('Audio starten is mislukt. Probeer Chrome of Edge en controleer de spraaksteminstellingen.','bad');
+  $('#voiceStatus').textContent='Audio mislukt';
+ }
 }
 function submitAnswer(timeout=false){
  if(answered||!current)return;
@@ -188,7 +209,7 @@ $('#skipBtn').addEventListener('click',()=>{if(current){if(!answered){answered=t
 $('#startBtn').addEventListener('click',startQuiz);
 $$('.jumpGroup').forEach(b=>b.addEventListener('click',()=>{const r=$(`input[name="group"][value="${b.dataset.group}"]`);r.checked=true;$('#customWrap').classList.toggle('visible',b.dataset.group==='custom');showPage('quiz');if(b.dataset.group==='custom')$('#customInput').focus()}));
 $('#resetStats').addEventListener('click',()=>{if(confirm('Weet je zeker dat je alle lokale statistieken wilt wissen?')){results=[];streak=0;localStorage.removeItem('pinyinStudioResults');localStorage.removeItem('pinyinStudioStreak');updateStats()}});
-speechSynthesis?.getVoices?.();
+if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
 loadData();
 </script>
 </body>
