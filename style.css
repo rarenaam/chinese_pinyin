@@ -108,3 +108,31 @@ main {
     padding: 18px 15px;
   }
 }
+
+.layout {
+    grid-template-columns: 1fr 320px !important;
+}
+
+.maincol {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: block !important;
+}
+
+.quiz {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.sound-area {
+    min-height: 300px !important;
+}
+
+.settings {
+    width: 320px !important;
+}
+
+.card {
+    position: relative !important;
+}
+``
