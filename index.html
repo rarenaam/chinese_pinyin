@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1025">
+<title>Pinyin Studio — Luister, herken, leer</title>
+<style>
+:root{color-scheme:dark;--bg:#080d1d;--panel:#101a35;--panel2:#131f40;--line:#26365f;--text:#f4f6ff;--muted:#a8b6df;--accent:#7777ff;--accent2:#4c55e8;--green:#32c982;--red:#ff7185;--gold:#ffc96b;--shadow:0 22px 70px #0005}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 60% -10%,#243c70 0,transparent 48%),linear-gradient(145deg,#080d1d,#0b1530 55%,#10182e);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text)}
+button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a7a6ff;outline-offset:3px}
+.app{display:grid;grid-template-columns:235px minmax(0,1fr);min-height:100vh}.sidebar{border-right:1px solid #ffffff13;padding:28px 18px;display:flex;flex-direction:column;background:#081126b8}.brand{display:flex;gap:12px;align-items:center;margin:2px 8px 36px}.brand-icon{font-size:29px;filter:drop-shadow(0 4px 12px #fb806755)}.brand strong{font-size:19px;letter-spacing:-.4px;display:block}.brand small{color:var(--muted)}nav{display:grid;gap:8px}.navitem{border:1px solid transparent;background:transparent;color:var(--muted);padding:13px 14px;border-radius:14px;text-align:left;display:flex;align-items:center;gap:12px}.navitem span{font-size:19px;width:22px;text-align:center}.navitem.active,.navitem:hover{background:#424bdc42;border-color:#747dff33;color:#fff}.sidebar-foot{margin-top:auto;color:var(--muted);font-size:13px;padding:20px 8px}.sidebar-foot b{font-size:20px;color:#e5eaff;display:block;margin-bottom:5px}
+main{min-width:0;padding:26px clamp(18px,3vw,44px) 38px;max-width:1600px;width:100%;margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#9da9ff;font-weight:800}.topbar h1{margin:3px 0 0;font-size:clamp(25px,3vw,36px);letter-spacing:-1.2px}.top-actions{display:flex;gap:10px;align-items:center}.pill{border:1px solid var(--line);border-radius:999px;padding:9px 13px;color:var(--muted);background:#101a35}.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}.maincol{min-width:0}.welcome{padding:10px 4px 22px}.welcome h2{font-size:clamp(22px,2.6vw,31px);margin:0 0 7px;letter-spacing:-.8px}.welcome p{margin:0;color:var(--muted)}.card{background:linear-gradient(150deg,#111b36f2,#0c152cf5);border:1px solid #31416b;border-radius:23px;box-shadow:var(--shadow)}.quiz{padding:25px clamp(18px,3vw,36px) 27px}.quiz-meta{display:flex;align-items:center;gap:16px;color:var(--muted);font-size:13px}.progress{height:8px;background:#263457;border-radius:999px;overflow:hidden;flex:1}.progress>i{height:100%;display:block;width:0;background:linear-gradient(90deg,#7375ff,#9e8dff);border-radius:999px;transition:width .25s}.timer{white-space:nowrap}.sound-area{min-height:265px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 0 20px}.sound-button{width:104px;height:104px;border-radius:50%;border:1px solid #6f78ff;background:radial-gradient(circle,#26356a,#121d40);color:white;font-size:34px;box-shadow:0 0 0 10px #4f5cf016,0 12px 35px #0004;transition:transform .18s}.sound-button:hover{transform:scale(1.04)}.sound-label{font-size:13px;color:var(--muted);margin-top:17px}.answer-row{display:flex;gap:10px}.answer-row input{min-width:0;flex:1;background:#0b142a;border:1px solid #526a9f;border-radius:13px;color:white;padding:15px 16px;font-size:17px}.primary{border:0;border-radius:13px;background:linear-gradient(100deg,#5d63f1,#514be0);color:white;font-weight:750;padding:14px 20px;box-shadow:0 8px 24px #4149d533}.primary:hover{filter:brightness(1.1)}.primary:disabled{opacity:.45;cursor:not-allowed}.feedback{min-height:30px;margin:12px 2px 0;font-size:14px;color:var(--muted)}.feedback.good{color:var(--green)}.feedback.bad{color:var(--red)}.quiz-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}.subtle{border:1px solid var(--line);background:#121e3b;color:var(--muted);border-radius:11px;padding:10px 13px}.tip{font-size:12px;color:var(--muted);margin-top:17px}.settings{padding:21px;display:grid;gap:17px}.settings h3{margin:0;font-size:17px}.setting-block{border:1px solid #29395f;border-radius:15px;padding:15px;background:#0c162d99}.setting-block label.title{display:block;font-size:13px;font-weight:750;margin-bottom:10px}.choices{display:grid;gap:7px}.choice{display:flex;gap:10px;align-items:flex-start;padding:9px;border-radius:11px;color:var(--muted);font-size:13px;cursor:pointer}.choice:has(input:checked){background:#424bdc2c;color:#fff}.choice input{accent-color:#7777ff;margin-top:4px}.choice b{display:block;font-size:14px;color:inherit}.choice small{display:block;color:var(--muted);margin-top:2px}.select,.number-input{width:100%;background:#0b142a;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px}.setting-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field-label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}.start{width:100%;background:linear-gradient(100deg,#31be82,#22a96f);box-shadow:0 8px 22px #27b97922}.custom-letters{margin-top:10px;display:none}.custom-letters.visible{display:block}.hidden{display:none!important}.panel-page{padding:24px}.panel-page h2{margin-top:0}.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.stat{padding:20px;border-radius:16px;background:#111c38;border:1px solid var(--line)}.stat strong{display:block;font-size:28px}.stat span{font-size:13px;color:var(--muted)}.group-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.group-card{padding:17px;border:1px solid var(--line);border-radius:15px;background:#111b35}.group-card b{display:block;font-size:17px}.group-card small{color:var(--muted)}.empty-note{color:var(--muted);font-size:14px}.footer{text-align:center;color:#7f90bd;font-size:12px;margin-top:24px}
+@media(max-width:1100px){.layout{grid-template-columns:minmax(0,1fr) 290px}.app{grid-template-columns:200px minmax(0,1fr)}.sidebar{padding:22px 12px}}
+@media(max-width:820px){.app{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid #ffffff13;padding:13px 15px;flex-direction:row;align-items:center;gap:18px}.brand{margin:0;white-space:nowrap}.brand-icon{font-size:24px}.brand strong{font-size:16px}.brand small{font-size:11px}nav{display:flex;gap:4px;overflow:auto}.navitem{padding:9px 10px;white-space:nowrap;font-size:13px}.navitem span{display:none}.sidebar-foot{display:none}main{padding:22px 15px}.layout{grid-template-columns:1fr}.settings{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.settings>h3,.settings>.start{grid-column:1/-1}.setting-block{min-width:0}}
+@media(max-width:520px){.sidebar{align-items:flex-start;flex-direction:column;gap:12px}.brand{margin-left:5px}nav{width:100%}.navitem{flex:1;justify-content:center;padding:8px}.topbar{align-items:flex-start}.pill{font-size:12px}.quiz{padding:18px 15px}.sound-area{min-height:230px}.answer-row{flex-direction:column}.answer-row .primary{width:100%}.quiz-bottom{align-items:flex-start}.settings{grid-template-columns:1fr}.settings>h3,.settings>.start{grid-column:auto}.stat-grid{grid-template-columns:1fr}.group-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-icon">🏮</div><div><strong>Pinyin Studio</strong><small>Luister · herken · leer</small></div></div>
+  <nav aria-label="Hoofdnavigatie">
+    <button class="navitem active" data-page="quiz"><span>◉</span> Quiz</button>
+    <button class="navitem" data-page="groups"><span>▦</span> Groepen</button>
+    <button class="navitem" data-page="stats"><span>▥</span> Statistieken</button>
+  </nav>
+  <div class="sidebar-foot"><b>一步一步</b>Stap voor stap naar vloeiend Chinees.</div>
+</aside>
+<main>
+  <header class="topbar">
+    <div><div class="eyebrow">Mandarijn oefenen</div><h1 id="pageTitle">Jouw luisterquiz</h1></div>
+    <div class="top-actions"><span class="pill" id="voiceStatus">◉ Audio klaarzetten</span></div>
+  </header>
+  <section id="quizPage" class="layout">
+    <div class="maincol">
+      <div class="welcome"><h2>Train je gehoor.</h2><p>Luister naar de Chinese uitspraak en typ de pinyin die je hoort.</p></div>
+      <section class="card quiz">
+        <div class="quiz-meta"><span id="questionCount">0 / 10</span><div class="progress"><i id="progressBar"></i></div><span class="timer" id="timer">◷ —</span></div>
+        <div class="sound-area">
+          <button class="sound-button" id="playBtn" aria-label="Speel uitspraak af">♫</button>
+          <div class="sound-label" id="soundLabel">Druk op de knop om de uitspraak te horen</div>
+        </div>
+        <form id="answerForm">
+          <div class="answer-row"><input id="answerInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Typ de pinyin, bijvoorbeeld nǐ" aria-label="Typ je pinyin-antwoord"><button class="primary" id="checkBtn" type="submit">Controleren ↗</button></div>
+        </form>
+        <div class="feedback" id="feedback" aria-live="polite">Tip: je kunt ook pinyin zonder toonaccenten invoeren.</div>
+        <div class="quiz-bottom"><button class="subtle" id="skipBtn" type="button">Overslaan</button><span class="tip">Je voortgang wordt lokaal opgeslagen.</span></div>
+      </section>
+      <div class="footer">Pinyin Studio · Een kleine stap per dag 一步一步</div>
+    </div>
+    <aside class="card settings">
+      <h3>⚙ Instellingen</h3>
+      <div class="setting-block"><label class="title">Welke groep wil je oefenen?</label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="group" value="all" checked><span><b>Alle groepen</b><small>Alles door elkaar</small></span></label>
+          <label class="choice"><input type="radio" name="group" value="initial"><span><b>Beginmedeklinkers</b><small>Bijv. b, p, m, f, zh, ch</small></span></label>
+          <label class="choice"><input type="radio" name="group" value="final"><span><b>Eindklanken</b><small>Bijv. a, ai, an, ang, ei</small></span></label>
+          <label class="choice"><input type="radio" name="group" value="custom"><span><b>Eigen selectie</b><small>Kies lettergrepen zelf</small></span></label>
+        </div>
+        <div class="custom-letters" id="customWrap"><label class="field-label" for="customInput">Lettergrepen, gescheiden door komma's</label><input class="select" id="customInput" placeholder="ma, mi, mu, zhong"></div>
+      </div>
+      <div class="setting-block"><label class="title">Tonen</label><div class="choices">
+        <label class="choice"><input type="radio" name="tones" value="all" checked><span><b>Alle tonen</b><small>1e, 2e, 3e en 4e toon</small></span></label>
+        <label class="choice"><input type="radio" name="tones" value="1"><span><b>Alleen toon 1</b></span></label>
+        <label class="choice"><input type="radio" name="tones" value="2"><span><b>Alleen toon 2</b></span></label>
+        <label class="choice"><input type="radio" name="tones" value="3"><span><b>Alleen toon 3</b></span></label>
+        <label class="choice"><input type="radio" name="tones" value="4"><span><b>Alleen toon 4</b></span></label>
+      </div></div>
+      <div class="setting-row">
+        <div><label class="field-label" for="amount">Aantal vragen</label><select id="amount" class="select"><option>5</option><option selected>10</option><option>20</option><option>30</option><option>50</option></select></div>
+        <div><label class="field-label" for="seconds">Seconden per vraag</label><select id="seconds" class="select"><option value="0">Geen timer</option><option value="5">5 sec</option><option value="10" selected>10 sec</option><option value="15">15 sec</option><option value="30">30 sec</option></select></div>
+      </div>
+      <button class="primary start" id="startBtn">▶ Start quiz</button>
+    </aside>
+  </section>
+  <section id="groupsPage" class="card panel-page hidden">
+    <h2>Oefenen per groep</h2><p class="empty-note">Kies een type klank en bouw de moeilijkheid rustig op. De groepen gebruiken de lettergrepen uit je gegevensbestand.</p>
+    <div class="group-grid">
+      <div class="group-card"><b>Alle klanken</b><small>De volledige set door elkaar</small><p><button class="subtle jumpGroup" data-group="all">Oefen alles →</button></p></div>
+      <div class="group-card"><b>Beginmedeklinkers</b><small>b, p, m, f, d, t, n, l…</small><p><button class="subtle jumpGroup" data-group="initial">Oefen initialen →</button></p></div>
+      <div class="group-card"><b>Eindklanken</b><small>a, ai, an, ang, ao, e, ei…</small><p><button class="subtle jumpGroup" data-group="final">Oefen finales →</button></p></div>
+      <div class="group-card"><b>Eigen selectie</b><small>Jouw eigen lijst lettergrepen</small><p><button class="subtle jumpGroup" data-group="custom">Stel samen →</button></p></div>
+    </div>
+  </section>
+  <section id="statsPage" class="card panel-page hidden">
+    <h2>Jouw voortgang</h2><p class="empty-note">Je resultaten worden alleen in deze browser bewaard.</p>
+    <div class="stat-grid"><div class="stat"><strong id="statPlayed">0</strong><span>Beantwoorde vragen</span></div><div class="stat"><strong id="statAccuracy">—</strong><span>Goed beantwoord</span></div><div class="stat"><strong id="statStreak">0</strong><span>Huidige reeks</span></div></div>
+    <h3>Recente resultaten</h3><div id="recentResults" class="empty-note">Speel je eerste quiz om hier resultaten te zien.</div>
+    <p><button class="subtle" id="resetStats">Wis statistieken</button></p>
+  </section>
+</main>
+</div>
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+let data=[], deck=[], current=null, index=0, score=0, timerId=null, remaining=0, answered=false;
+let results=JSON.parse(localStorage.getItem('pinyinStudioResults')||'[]');
+let streak=Number(localStorage.getItem('pinyinStudioStreak')||0);
+let sessionTotal=10;
+const initials=['zh','ch','sh','b','p','m','f','d','t','n','l','g','k','h','j','q','x','r','z','c','s','w','y'];
+const finals=['a','o','e','i','u','ü','ai','ei','ui','ao','ou','iu','ie','üe','er','an','en','in','un','ün','ang','eng','ing','ong'];
+const normalize=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/u:/g,'ü').replace(/\s+/g,'');
+function selected(name){return $(`input[name="${name}"]:checked`).value}
+function setFeedback(text,kind=''){const el=$('#feedback');el.textContent=text;el.className='feedback '+kind}
+function updateStats(){
+ $('#statPlayed').textContent=results.length;
+ const correct=results.filter(x=>x.correct).length;
+ $('#statAccuracy').textContent=results.length?Math.round(correct/results.length*100)+'%':'—';
+ $('#statStreak').textContent=streak;
+ $('#recentResults').innerHTML=results.length?results.slice(-8).reverse().map(r=>`<div style="display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #29395f;padding:10px 0"><span>${r.correct?'✓':'✕'} ${r.answer||'—'} <small style="color:#a8b6df">(${r.expected})</small></span><span style="color:#a8b6df;font-size:12px">${r.correct?'Goed':'Fout'}</span></div>`).join(''):'Speel je eerste quiz om hier resultaten te zien.';
+}
+function showPage(page){
+ ['quiz','groups','stats'].forEach(p=>$('#'+p+'Page').classList.toggle('hidden',p!==page));
+ $$('.navitem').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ $('#pageTitle').textContent=({quiz:'Jouw luisterquiz',groups:'Oefenen per groep',stats:'Jouw statistieken'})[page];
+ if(page==='stats')updateStats();
+}
+$$('.navitem').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+$$('input[name="group"]').forEach(r=>r.addEventListener('change',()=>$('#customWrap').classList.toggle('visible',selected('group')==='custom')));
+async function loadData(){
+ try{const response=await fetch('./data.json');if(!response.ok)throw new Error('data.json niet gevonden');data=await response.json();$('#voiceStatus').textContent='● '+data.length+' klankcombinaties';}
+ catch(e){$('#voiceStatus').textContent='Data niet geladen';setFeedback('Kon data.json niet laden. Upload index.html én data.json naar dezelfde GitHub-map.','bad');}
+}
+function matchingEntries(){
+ let pool=data.slice(); const group=selected('group');
+ if(group==='initial')pool=pool.filter(x=>{let onset=initials.find(i=>x.base.startsWith(i));return !!onset});
+ if(group==='final')pool=pool.filter(x=>finals.some(f=>x.base===f||x.base.endsWith(f)));
+ if(group==='custom'){
+  const wanted=$('#customInput').value.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
+  pool=pool.filter(x=>wanted.includes(x.base));
+ }
+ const tone=selected('tones');if(tone!=='all')pool=pool.filter(x=>x.tone===Number(tone));
+ return pool;
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startQuiz(){
+ if(!data.length){setFeedback('De dataset is nog niet geladen. Controleer of data.json naast index.html staat.','bad');return}
+ const pool=matchingEntries();
+ if(!pool.length){setFeedback('Geen klanken gevonden. Controleer je groep of eigen selectie.','bad');return}
+ sessionTotal=Number($('#amount').value);deck=shuffle(pool).slice(0,Math.min(sessionTotal,pool.length));index=0;score=0;
+ showPage('quiz');nextQuestion();
+}
+function nextQuestion(){
+ clearInterval(timerId);answered=false;
+ if(index>=deck.length){
+  $('#questionCount').textContent=`${deck.length} / ${deck.length}`;$('#progressBar').style.width='100%';$('#timer').textContent='✓ Klaar';
+  $('#soundLabel').textContent=`Quiz afgerond — ${score} van ${deck.length} goed`;$('#playBtn').textContent='✓';$('#playBtn').disabled=true;
+  $('#answerInput').disabled=true;$('#checkBtn').disabled=true;
+  setFeedback(`Je score: ${Math.round(score/deck.length*100)}%. Klik op “Start quiz” om opnieuw te oefenen.`,score/deck.length>=.7?'good':'');
+  clearInterval(timerId);return;
+ }
+ current=deck[index];$('#questionCount').textContent=`${index+1} / ${deck.length}`;$('#progressBar').style.width=`${index/deck.length*100}%`;
+ $('#soundLabel').textContent='Luister goed en typ de pinyin';$('#playBtn').textContent='♫';$('#playBtn').disabled=false;$('#answerInput').disabled=false;$('#checkBtn').disabled=false;$('#answerInput').value='';$('#answerInput').focus();setFeedback('Tip: je kunt ook pinyin zonder toonaccenten invoeren.');
+ const secs=Number($('#seconds').value);remaining=secs;$('#timer').textContent=secs?`◷ ${remaining}s`:'◷ Geen timer';
+ if(secs){timerId=setInterval(()=>{remaining--;$('#timer').textContent=`◷ ${remaining}s`;if(remaining<=0){clearInterval(timerId);if(!answered)submitAnswer(true)}},1000)}
+ setTimeout(playSound,250);
+}
+function playSound(){
+ if(!current)return;
+ if(!('speechSynthesis'in window)){setFeedback('Deze browser ondersteunt geen spraaksynthese. Probeer Chrome of Edge.','bad');return}
+ speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(current.hanzi);utterance.lang='zh-CN';utterance.rate=.78;utterance.pitch=1;
+ const voices=speechSynthesis.getVoices();const zh=voices.find(v=>/^zh(-|_)?(CN|Hans)?/i.test(v.lang))||voices.find(v=>v.lang.toLowerCase().startsWith('zh'));
+ if(zh)utterance.voice=zh;
+ utterance.onerror=()=>setFeedback('De browser kon geen stem afspelen. Controleer of er een Chinese stem beschikbaar is.','bad');
+ speechSynthesis.speak(utterance);
+}
+function submitAnswer(timeout=false){
+ if(answered||!current)return;
+ if(!timeout&&!$('#answerInput').value.trim()){$('#answerInput').focus();return}
+ answered=true;clearInterval(timerId);
+ const answer=timeout?'':$('#answerInput').value.trim();
+ const correct=normalize(answer)===normalize(current.pinyin);
+ if(correct)score++;
+ results.push({answer,expected:current.pinyin,correct,base:current.base,tone:current.tone,at:Date.now()});
+ if(results.length>200)results=results.slice(-200);
+ streak=correct?streak+1:0;
+ localStorage.setItem('pinyinStudioResults',JSON.stringify(results));localStorage.setItem('pinyinStudioStreak',String(streak));
+ if(correct){setFeedback('Goed! ✓ '+current.pinyin+' — '+current.hanzi,'good')}
+ else{setFeedback((timeout?'Tijd voorbij. ':'Niet helemaal. ')+'Antwoord: '+current.pinyin+' ('+current.hanzi+')', 'bad')}
+ $('#soundLabel').textContent=current.hanzi+' · '+current.pinyin;
+ $('#checkBtn').textContent=index===deck.length-1?'Resultaat bekijken →':'Volgende vraag →';
+}
+$('#answerForm').addEventListener('submit',e=>{e.preventDefault();if(answered){index++;$('#checkBtn').textContent='Controleren ↗';nextQuestion()}else submitAnswer()});
+$('#playBtn').addEventListener('click',playSound);
+$('#skipBtn').addEventListener('click',()=>{if(current){if(!answered){answered=true;clearInterval(timerId);results.push({answer:'',expected:current.pinyin,correct:false,base:current.base,tone:current.tone,at:Date.now()});localStorage.setItem('pinyinStudioResults',JSON.stringify(results));streak=0;localStorage.setItem('pinyinStudioStreak','0')}index++;$('#checkBtn').textContent='Controleren ↗';nextQuestion()}});
+$('#startBtn').addEventListener('click',startQuiz);
+$$('.jumpGroup').forEach(b=>b.addEventListener('click',()=>{const r=$(`input[name="group"][value="${b.dataset.group}"]`);r.checked=true;$('#customWrap').classList.toggle('visible',b.dataset.group==='custom');showPage('quiz');if(b.dataset.group==='custom')$('#customInput').focus()}));
+$('#resetStats').addEventListener('click',()=>{if(confirm('Weet je zeker dat je alle lokale statistieken wilt wissen?')){results=[];streak=0;localStorage.removeItem('pinyinStudioResults');localStorage.removeItem('pinyinStudioStreak');updateStats()}});
+speechSynthesis?.getVoices?.();
+loadData();
+</script>
+</body>
+</html>
